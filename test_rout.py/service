@@ -1,0 +1,16 @@
+# service/routes.py
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from yourapp.models import Product
+from yourapp.serializers import ProductSerializer
+
+@api_view(['GET'])
+def read_product(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response({'error': 'Product not found'}, status=404)
+    
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
