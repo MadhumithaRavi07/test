@@ -1,0 +1,40 @@
+# service/routes.py
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from yourapp.models import Product
+from yourapp.serializers import ProductSerializer
+
+@api_view(['GET'])
+def list_all_products(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def list_products_by_name(request):
+    name = request.query_params.get('name', None)
+    if name:
+        products = Product.objects.filter(name__icontains=name)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    return Response({'error': 'Name parameter is required'}, status=400)
+
+@api_view(['GET'])
+def list_products_by_category(request):
+    category = request.query_params.get('category', None)
+    if category:
+        products = Product.objects.filter(category__icontains=category)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    return Response({'error': 'Category parameter is required'}, status=400)
+
+@api_view(['GET'])
+def list_products_by_availability(request):
+    availability = request.query_params.get('availability', None)
+    if availability:
+        availability = availability.lower() == 'true'  # Convert to boolean
+        products = Product.objects.filter(availability=availability)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    return Response({'error': 'Availability parameter is required'}, status=400)
