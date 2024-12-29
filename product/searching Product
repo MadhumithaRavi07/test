@@ -1,0 +1,8 @@
+# features/products.feature
+
+Feature: Product Management
+
+  Scenario: Searching a product by availability
+    Given I have products with different availability statuses
+    When I search for available products
+    Then I should see only products that are available
