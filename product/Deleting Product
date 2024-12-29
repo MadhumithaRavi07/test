@@ -1,0 +1,8 @@
+# features/products.feature
+
+Feature: Product Management
+
+  Scenario: Deleting a product
+    Given I have a product with ID 1
+    When I delete the product
+    Then the product should be removed from the system
