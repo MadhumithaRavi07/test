@@ -1,0 +1,15 @@
+# service/routes.py
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from yourapp.models import Product
+
+@api_view(['DELETE'])
+def delete_product(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response({'error': 'Product not found'}, status=404)
+
+    product.delete()
+    return Response(status=204)  # No Content
