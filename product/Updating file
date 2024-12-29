@@ -1,0 +1,8 @@
+# features/products.feature
+
+Feature: Product Management
+
+  Scenario: Updating a product
+    Given I have a product with ID 1
+    When I update the product's price to 250
+    Then the product's price should be updated to 250
