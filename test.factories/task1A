@@ -1,0 +1,18 @@
+# tests/factories.py
+
+import factory
+from yourapp.models import Product
+from faker import Faker
+
+fake = Faker()
+
+class ProductFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Product
+
+    name = factory.LazyAttribute(lambda x: fake.name())
+    description = factory.LazyAttribute(lambda x: fake.text())
+    price = factory.LazyAttribute(lambda x: fake.random_number(digits=2))
+    category = factory.LazyAttribute(lambda x: fake.word())
+    availability = factory.LazyAttribute(lambda x: fake.boolean())
+
