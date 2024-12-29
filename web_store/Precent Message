@@ -1,0 +1,9 @@
+# features/steps/web_steps.py
+
+from behave import then
+from selenium.webdriver.common.by import By
+
+@then('I should see the message "{message}"')
+def step_impl(context, message):
+    message_element = context.driver.find_element(By.XPATH, f'//div[text()="{message}"]')
+    assert message_element.is_displayed()
