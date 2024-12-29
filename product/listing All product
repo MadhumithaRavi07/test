@@ -1,0 +1,8 @@
+# features/products.feature
+
+Feature: Product Management
+
+  Scenario: Listing all products
+    Given I have several products in the system
+    When I list all products
+    Then I should see a list of products
