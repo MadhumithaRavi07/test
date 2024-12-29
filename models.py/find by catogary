@@ -1,0 +1,27 @@
+# tests/test_models.py
+
+from yourapp.models import Product
+from django.test import TestCase
+
+class ProductModelTest(TestCase):
+
+    def setUp(self):
+        self.product1 = Product.objects.create(
+            name="Product 1",
+            description="Test Description 1",
+            price=100,
+            category="Category 1",
+            availability=True
+        )
+        self.product2 = Product.objects.create(
+            name="Product 2",
+            description="Test Description 2",
+            price=200,
+            category="Category 2",
+            availability=False
+        )
+
+    def test_find_product_by_category(self):
+        products = Product.objects.filter(category="Category 1")
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products[0].category, "Category 1")
